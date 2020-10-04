@@ -3,7 +3,7 @@
 /* Not required for template or sticky footer method. */
 
 main > .container {
-  padding: 60px 15px 0;
+  padding: 80px 15px 0;
 }
 
 .footer {
@@ -17,6 +17,10 @@ main > .container {
 
 code {
   font-size: 80%;
+}
+
+.type-pages {
+    margin-left: 30px;
 }
 
 .question-box {
@@ -35,4 +39,42 @@ code {
 .question-title {
     font-size: 20px;
     font-weight: bold;
+}
+
+.btn-rating {
+    width: 20px;
+    height: 20px;
+}
+
+.under-question {
+    margin-top: 10px;
+}
+
+.question-answers {
+    margin-left: 15px;
+}
+
+.question-tags {
+    margin-left: 5px;
+}
+
+.question-tag {
+    margin-left: 5px;
+}
+
+.right-side {
+    margin-top: 15px;
+    padding-left: 40px;
+}
+
+.best-members {
+    margin-top: 20px;
+}
+
+.underlined {
+    text-decoration-line: underline;
+}
+
+.popular-tag {
+    padding-left: 5px;
 }
