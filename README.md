@@ -1,3 +1,3 @@
 # Web-технологии; Технопарк; 1 семестр
 
-## [ask-timonin.com](https://timoninas.github.io/ask-timonin/test.html)
+## [ask-timonin.com](https://github.com/timoninas/ask-timonin/blob/main/test.html)
