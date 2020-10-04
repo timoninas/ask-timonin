@@ -1,2 +1,2 @@
-# ask-timonin
-Web technology 1 semester in tech park
+# Web-технологии; Технопарк; 1 семестр
+
