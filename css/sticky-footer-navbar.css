@@ -103,3 +103,22 @@ code {
     margin-top: 20px;
     width: 100px;
 }
+
+.view-question-box {
+    margin-top: 20px;
+    border-radius: 12px;
+    padding: 10px;
+    border-bottom: 3px solid black !important;
+}
+
+.answer-box {
+    border: 1px solid;
+    margin-top: 20px;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.input-asnwer {
+    width: 550px;
+    height: 100px;
+}
