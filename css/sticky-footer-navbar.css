@@ -20,7 +20,7 @@ code {
 }
 
 .type-pages {
-    margin-left: 30px;
+    margin-left: 15px;
     margin-top: 10px;
 }
 
@@ -122,4 +122,8 @@ code {
 .input-asnwer {
     width: 550px;
     height: 100px;
+}
+
+.setting-form {
+    margin-top: 25px;
 }
