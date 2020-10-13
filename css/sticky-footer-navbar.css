@@ -127,3 +127,7 @@ code {
 .setting-form {
     margin-top: 25px;
 }
+
+.warning-title {
+    color: red;
+}
