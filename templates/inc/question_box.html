@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="row question-box">
+      <! –– For Image ––>
+      <div class="col-3">
+         <img class = "question-img" src = "{% static "img/test.jpg" %}" width = 100px height = 100px >
+         <div class="col-1 rating-counter">
+            <div class="rating-title">5</div>
+            <button class = "btn-rating" id="plus-rating" name="plus"><br><br></button>
+            <button class = "btn-rating" id="minus-rating" name="minus"><br><br></button>
+         </div>
+      </div>
+      <! –– For title and text ––>
+      <div class="col-9">
+         <div class="question-title">{{ question.title }}</div>
+         <div class="question-text">
+            {{ question.text }}
+         </div>
+         <div class="row under-question">
+            <div class = "question-answers">
+               <a class = "underlined" href = "">Ответы (0)</a>
+            </div>
+            <div class="question-tags">
+               Теги:
+               <a class = "question-tag underlined" href = "">black-jack</a>
+               <a class = "question-tag underlined" href = "">bender</a>
+               <a class = "question-tag underlined" href = "">sql</a>
+               <a class = "question-tag underlined" href = "">notail</a>
+            </div>
+         </div>
+      </div>
+   </div>

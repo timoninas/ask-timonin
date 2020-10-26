@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" class="h-100">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+      <meta name="generator" content="Jekyll v4.1.1">
+      <title>Sticky Footer Navbar Template · Bootstrap</title>
+      <! –– CSS ––>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+   </head>
+   <body class="d-flex flex-column h-100">
+      <header>
+         <!-- Fixed navbar -->
+         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">Ask-Timonin</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+               <form class="form-inline mt-2 mt-md-0">
+                  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" style="width: 350px;">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+               </form>
+               <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                     <a class="ask link" href="" style="color: green; padding-left: 20px;">Ask</a>
+                  </li>
+               </ul>
+               <form class="form-inline mt-2 mt-md-0">
+                  <img class = "question-img" src = "img/test.jpg" width = 50px height = 50px >
+                  <div class="col">
+                     <div class="col question-tags">
+                        <div style="color: white;">
+                           <h5 class ="col user-name-bar">
+                              Username
+                           </h5>
+                        </div>
+                     </div>
+                     <div class="col">
+                        <a class="question-tags" href = "">Settings</a> <a class="question-tags" href = "">Log out</a>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </nav>
+      </header>
+
+      <!-- Begin page content -->
+      <main role="main" class="flex-shrink-0">
+         <div class="container">
+            <div class = "row">
+               <div class = " type-pages">
+                  <h2>Settings: Dr. Pepper</h2>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-9">
+                  <form class="setting-form">
+                     <div class="form-group row">
+                        <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
+                        <div class="col-sm-10">
+                           <input type="text" class="form-control" id="inputLogin" value="dr_pepper">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                           <input type="text" class="form-control" id="inputEmail" value="dr.pepper@mail.ru">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="Nickname" class="col-sm-2 col-form-label">Nickname</label>
+                        <div class="col-sm-10">
+                           <input type="text" class="form-control" id="Nickname" value="Dr. Perper">
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-2">
+                           Upload avatar
+                        </div>
+
+                        <div class="col-10">
+                           <img class = " question-img" src = "img/test1.jpg" width = 125px height = 125px >
+                           <div class="setting-form custom-file">
+                              <input type="file" class="custom-file-input" id="customFile">
+                              <label class="custom-file-label" for="customFile">Choose image</label>
+                           </div>
+                           <button type="button" class="btn btn-primary setting-form">Save</button>
+                        </div>
+
+                     </div>
+                  </form>
+               </div>
+
+
+
+               <! –– Right Side ––>
+               <div class="col-3 right-side">
+                  <div class="col popular-tags">
+                     <div>
+                        <h3>Polular Tags</h3>
+                     </div>
+                     <a class = "popular-tag" href = "" style="color:black">perl</a>
+                     <a class = "popular-tag" href = "" style="color:#darkblue">java</a>
+                     <h3><a class = "popular-tag" href = "" style="color:red">python</a></h3>
+                     <a class = "popular-tag" href = "" style="color:black">MySQL</a>
+                     <a class = "popular-tag" href = "" style="color:darkblue">django</a>
+                     <h4><a class = "popular-tag" href = "" style="color:#00ff00">firefox</a></h4>
+                     <a class = "popular-tag" href = "" style="color:black">Swift</a>
+                     <h4><a class = "popular-tag" href = "" style="color:darkblue">MacOS</a></h4>
+                     <a class = "popular-tag" href = "" style="color:#00ff00">Apt-get</a>
+                  </div>
+                  <div class="col best-members">
+                     <div>
+                        <h3>Best Members</h3>
+                     </div>
+                     <p><a class = "underlined" href = "">Mr. Freeman</a></p>
+                     <p><a class = "underlined" href = "">Dr. House</a></p>
+                     <p><a class = "underlined" href = "">Bender</a></p>
+                     <p><a class = "underlined" href = "">Queen Victoria</a></p>
+                     <p><a class = "underlined" href = "">V. Pupkin</a></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </main>
+      <! –– JS ––>
+      <script src="js/jquery.slim.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+   </body>
+</html>

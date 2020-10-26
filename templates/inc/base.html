@@ -1,0 +1,51 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" class="h-100">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+      <meta name="generator" content="Jekyll v4.1.1">
+      <title>Sticky Footer Navbar Template · Bootstrap</title>
+      <! –– CSS ––>
+      <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+      <link href="{% static "css/sticky-footer-navbar.css" %}" rel="stylesheet">
+   </head>
+   <body class="d-flex flex-column h-100">
+      <header>
+         <!-- P Fixed navbar -->
+
+         {% include 'inc/navbar.html' %}
+
+      </header>
+      <!-- Begin page content -->
+      <main role="main" class="flex-shrink-0">
+         <div class="container">
+            <div class = "row">
+               <div class = "type-pages">
+                  <h2>New questions</h2>
+               </div>
+               <div class = "type-pages">
+                  <h3><a class = "underlined" href = "" >Hot questions</a></h3>
+               </div>
+            </div>
+            <div class="row">
+
+               {% block content %}
+               {% endblock content %}
+               <! –– Right Side ––>
+
+               {% block right %}
+               {% endblock right %}
+
+            </div>
+         </div>
+      </main>
+      <! –– JS ––>
+      <script src="js/jquery.slim.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+   </body>
+</html>
