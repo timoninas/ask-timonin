@@ -1,9 +1,23 @@
 {% extends 'inc/base.html' %}
 {% load static %}
 
+{% block navbar %}
+    {% include 'inc/logined_navbar.html' %}
+{% endblock navbar %}
+
+
 {% block content %}
+<div class = "row">
+               <div class = "type-pages">
+                  <h2>New questions</h2>
+               </div>
+               <div class = "type-pages">
+                  <h3><a class = "underlined" href = "" >Hot questions</a></h3>
+               </div>
+            </div>
 <div class="col-9">
    <! –– Question Box ––>
+
 
    {% for question in questions %}
       {% include 'inc/question_box.html' %}

@@ -1,132 +1,44 @@
+{% extends 'inc/base.html' %}
 {% load static %}
 
-<!doctype html>
-<html lang="en" class="h-100">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-        <meta name="generator" content="Jekyll v4.1.1">
-        <title>Sticky Footer Navbar Template · Bootstrap</title>
-        <! –– CSS ––>
-        <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
-        <link href="{% static "css/sticky-footer-navbar.css" %}" rel="stylesheet">
-    </head>
-    <body class="d-flex flex-column h-100">
-        <header>
-            <!-- Fixed navbar -->
-            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                <a class="navbar-brand" href="#">Ask-Timonin</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <form class="form-inline mt-2 mt-md-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" style="width: 350px;">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="ask link" href="" style="color: green; padding-left: 20px;">Ask</a>
-                        </li>
-                    </ul>
-                    <form class="form-inline mt-2 mt-md-0">
-                        <img class = "question-img" src = "img/test.jpg" width = 50px height = 50px >
+{% block navbar %}
+    {% include 'inc/logined_navbar.html' %}
+{% endblock navbar %}
 
-                        <div class="col">
-                            <div class="col question-tags">
-                                <div style="color: white;">
-                                    <h5 class ="col user-name-bar">
-                                        Username
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <a class="question-tags" href = "">Settings</a> <a class="question-tags" href = "">Log out</a>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </nav>
-        </header>
-        <!-- Begin page content -->
-        <main role="main" class="flex-shrink-0">
-            <div class="container">
-
-                <div class="row">
-                    <div class="col-9">
-                        <! –– Question Box ––>
-
-                        <h2 style="margin-top: 10px;">New question</h2>
-                        <div class="col new-question-box">
-
-                            <div class = "row new-question-line">
-                                <div class="col-2">
-                                    Title
-                                </div>
-                                <div class="col-9">
-                                    <input class = "new-question-width " type="text" placeholder="Input title">
-                                </div>
-                            </div>
-
-                            <div class = "row new-question-line">
-                                <div class="col-2">
-                                    Text
-                                </div>
-                                <div class="col-9">
-                                    <textarea class="new-question-width new-question-height" id="exampleFormControlTextarea1" rows="3" placeholder="Input text"></textarea>
-
-                                </div>
-                            </div>
-
-                            <div class = "row new-question-line">
-                                <div class="col-2">
-                                    Tags
-                                </div>
-                                <div class="col-9">
-                                    <input class = "new-question-width " type="text" placeholder="Input tags">
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn btn-secondary ask-btn">Ask!</button>
-
-                    </div>
-                    <! –– Right Side ––>
-                    <div class="col-3 right-side">
-                        <div class="col popular-tags">
-                            <div>
-                                <h3>Polular Tags</h3>
-                            </div>
-                            <a class = "popular-tag" href = "" style="color:black">perl</a>
-                            <a class = "popular-tag" href = "" style="color:#darkblue">java</a>
-                            <h3><a class = "popular-tag" href = "" style="color:red">python</a></h3>
-                            <a class = "popular-tag" href = "" style="color:black">MySQL</a>
-                            <a class = "popular-tag" href = "" style="color:darkblue">django</a>
-                            <h4><a class = "popular-tag" href = "" style="color:#00ff00">firefox</a></h4>
-                            <a class = "popular-tag" href = "" style="color:black">Swift</a>
-                            <h4><a class = "popular-tag" href = "" style="color:darkblue">MacOS</a></h4>
-                            <a class = "popular-tag" href = "" style="color:#00ff00">Apt-get</a>
-                        </div>
-                        <div class="col best-members">
-                            <div>
-                                <h3>Best Members</h3>
-                            </div>
-                            <p><a class = "underlined" href = "">Mr. Freeman</a></p>
-                            <p><a class = "underlined" href = "">Dr. House</a></p>
-                            <p><a class = "underlined" href = "">Bender</a></p>
-                            <p><a class = "underlined" href = "">Queen Victoria</a></p>
-                            <p><a class = "underlined" href = "">V. Pupkin</a></p>
-                        </div>
-                    </div>
-                </div>
+<! –– Question Box ––>
+{% block content %}
+<div class="col-9">
+    <h2 style="margin-top: 10px;">New question</h2>
+    <div class="col new-question-box">
+        <div class = "row new-question-line">
+            <div class="col-2">
+                Title
             </div>
-        </main>
-        <! –– JS ––>
-        <script src="js/jquery.slim.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-    </body>
-</html>
+            <div class="col-9">
+                <input class = "new-question-width " type="text" placeholder="Input title">
+            </div>
+        </div>
+        <div class = "row new-question-line">
+            <div class="col-2">
+                Text
+            </div>
+            <div class="col-9">
+                <textarea class="new-question-width new-question-height" id="exampleFormControlTextarea1" rows="3" placeholder="Input text"></textarea>
+            </div>
+        </div>
+        <div class = "row new-question-line">
+            <div class="col-2">
+                Tags
+            </div>
+            <div class="col-9">
+                <input class = "new-question-width " type="text" placeholder="Input tags">
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-secondary ask-btn">Ask!</button>
+</div>
+{% endblock content %}
+
+{% block right %}
+    {% include 'inc/block_right.html' %}
+{% endblock right %}

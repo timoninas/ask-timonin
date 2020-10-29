@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="row answer-box">
+    <! –– For Image ––>
+    <div class="col-3">
+        <img class = "question-img" src = "{% static "img/test1.jpg" %}" width = 100px height = 100px >
+        <div class="row-1 rating-counter">
+            <div class="col rating-title">5</div>
+            <div class="col">
+                <button class = "btn-rating" id="plus-rating" name="plus"><br><br></button>
+                <button class = "btn-rating" id="minus-rating" name="minus"><br><br></button>
+            </div>
+        </div>
+    </div>
+    <! –– For title and text ––>
+    <div class="col-9">
+        <div class="question-text">
+            Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco
+        </div>
+        <div style="margin-top: 10px;">
+            <input type="checkbox" id="isCorrest" name="isCorrect">
+            <label for="isCorrest"> Correct!</label><br>
+        </div>
+    </div>
+</div>

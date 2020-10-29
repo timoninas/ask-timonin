@@ -1,27 +1,17 @@
 {% extends 'inc/base.html' %}
 {% load static %}
 
-{% block navbar %}
-    {% include 'inc/logined_navbar.html' %}
-{% endblock navbar %}
-
 {% block content %}
 <div class="col-9">
-   <! –– View Question Box ––>
-   {% include 'inc/view_question_box.html' %}
+
+   <div class = "type-pages">
+      <h2>Tag: bender</h2>
+   </div>
 
    <! –– Answer Box ––>
-   {% include 'inc/comment_box.html' %}
-   {% include 'inc/comment_box.html' %}
-   {% include 'inc/comment_box.html' %}
-
-   <div class = "row ">
-      <textarea class="input-asnwer" style="margin-top: 20px;" id="exampleFormControlTextarea1" rows="3" placeholder="Input answer"></textarea>
-   </div>
-
-   <div class = "row">
-      <button type="button" class="btn btn-secondary ask-btn" >Ask!</button>
-   </div>
+   {% include 'inc/question_box.html' %}
+   {% include 'inc/question_box.html' %}
+   {% include 'inc/question_box.html' %}
 
    <! –– Pagination ––>
    <nav aria-label="Page navigation example">
@@ -39,4 +29,3 @@
 {% block right %}
    {% include 'inc/block_right.html' %}
 {% endblock right %}
-

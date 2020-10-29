@@ -1,0 +1,45 @@
+{% extends 'inc/base.html' %}
+{% load static %}
+
+{% block navbar %}
+   {% include 'inc/unlogined_navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="col-9">
+    <div class = "col">
+        <h2>Log in</h2>
+        <div class = "warning-title"> Sorry, wrong password </div>
+    </div>
+    <form class="setting-form">
+        <div class="form-group row">
+            <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputLogin" placeholder="Enter your login here">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" value="Some password">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <button type="button" class="btn btn-primary setting-form">Log in</button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <a class="question-tags underlined" href = "">Create new account</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block right %}
+   {% include 'inc/block_right.html' %}
+{% endblock right %}
