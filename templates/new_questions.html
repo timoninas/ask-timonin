@@ -26,11 +26,19 @@
    <! –– Pagination ––>
    <nav aria-label="Page navigation example">
       <ul class="pagination" style="margin-top: 15px">
-         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-         <li class="page-item"><a class="page-link" href="#">1</a></li>
-         <li class="page-item"><a class="page-link" href="#">2</a></li>
-         <li class="page-item"><a class="page-link" href="#">3</a></li>
-         <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          {% if questions.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ questions.next_page_number }}">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ questions.previous_page_number }}">{{ questions.previous_page_number }}</a></li>
+          {% endif %}
+
+          <li class="page-item"><a class="page-link" href="">{{ questions.number }}</a></li>
+
+          {% if questions.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ questions.next_page_number }}">{{ questions.next_page_number }}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ questions.next_page_number }}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ questions.paginator.num_pages }}">Last</a></li>
+          {% endif %}
       </ul>
    </nav>
 </div>

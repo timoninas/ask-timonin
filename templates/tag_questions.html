@@ -1,21 +1,24 @@
 {% extends 'inc/base.html' %}
 {% load static %}
 
+{% block navbar %}
+    {% include 'inc/logined_navbar.html' %}
+{% endblock navbar %}
+
 {% block content %}
 <div class="col-9">
 
    <div class = "type-pages">
-      <h2>Tag: bender</h2>
+      <h2>Tag: {{ tag }}</h2>
    </div>
-
-   <! –– Answer Box ––>
-   {% include 'inc/question_box.html' %}
-   {% include 'inc/question_box.html' %}
-   {% include 'inc/question_box.html' %}
+      {% for question in questions %}
+         {% include 'inc/question_box.html' %}
+      {% endfor %}
 
    <! –– Pagination ––>
    <nav aria-label="Page navigation example">
       <ul class="pagination" style="margin-top: 15px">
+
          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
          <li class="page-item"><a class="page-link" href="#">1</a></li>
          <li class="page-item"><a class="page-link" href="#">2</a></li>

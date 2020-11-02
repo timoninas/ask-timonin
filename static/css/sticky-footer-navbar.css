@@ -131,3 +131,7 @@ code {
 .warning-title {
     color: red;
 }
+
+.like-dislike {
+    padding-left: 40px;
+}

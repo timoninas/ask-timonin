@@ -23,9 +23,10 @@ urlpatterns = [
     path('new_questions', views.new_questions, name='newquestions'),
     path('ask_question', views.ask_question, name='askquestion'),
     path('answer_question', views.answer_question, name='answerquestion'),
-    path('tag_questions', views.tag_questions, name='tagquestions'),
+    path('tag', views.tag_questions, name='tagquestions'),
     path('settings', views.settings, name='settings'),
     path('signin', views.signin, name='signin'),
     path('signup', views.signup, name='signup'),
     path('question/<int:pk>/', views.question_page),
+    path('tag/<str:pk>/', views.tag_page),
 ]

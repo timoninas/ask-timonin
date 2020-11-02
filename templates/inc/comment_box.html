@@ -4,13 +4,13 @@
     <! –– For Image ––>
     <div class="col-3">
         <img class = "question-img" src = "{% static "img/test1.jpg" %}" width = 100px height = 100px >
-        <div class="row-1 rating-counter">
-            <div class="col rating-title">5</div>
-            <div class="col">
-                <button class = "btn-rating" id="plus-rating" name="plus"><br><br></button>
-                <button class = "btn-rating" id="minus-rating" name="minus"><br><br></button>
-            </div>
-        </div>
+        <div class="row right-side">
+             <input type="image" name="dislike" src="{% static "img/dislike.png" %}" alt="Submit" width="19" height="19">
+             <div class="rating-title">
+                 5
+             </div>
+             <input type="image" name="like" src="{% static "img/like.png" %}" alt="Submit" width="19" height="19">
+         </div>
     </div>
     <! –– For title and text ––>
     <div class="col-9">

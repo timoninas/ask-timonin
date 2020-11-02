@@ -4,10 +4,12 @@
       <! –– For Image ––>
       <div class="col-3">
          <img class = "question-img" src = "{% static "img/test.jpg" %}" width = 100px height = 100px >
-         <div class="col-1 rating-counter">
-            <div class="rating-title">5</div>
-            <button class = "btn-rating" id="plus-rating" name="plus"><br><br></button>
-            <button class = "btn-rating" id="minus-rating" name="minus"><br><br></button>
+         <div class="row right-side">
+             <input type="image" name="dislike" src="{% static "img/dislike.png" %}" alt="Submit" width="19" height="19">
+             <div class="rating-title">
+                 5
+             </div>
+             <input type="image" name="like" src="{% static "img/like.png" %}" alt="Submit" width="19" height="19">
          </div>
       </div>
       <! –– For title and text ––>
@@ -22,10 +24,10 @@
             </div>
             <div class="question-tags">
                Теги:
-               <a class = "question-tag underlined" href = "">black-jack</a>
-               <a class = "question-tag underlined" href = "">bender</a>
-               <a class = "question-tag underlined" href = "">sql</a>
-               <a class = "question-tag underlined" href = "">notail</a>
+                {% include 'inc/tag.html' %}
+                {% for tagone in question.tag %}
+                    {% include 'inc/tag.html' %}
+                {% endfor %}
             </div>
          </div>
       </div>
