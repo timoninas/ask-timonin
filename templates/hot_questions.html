@@ -9,10 +9,14 @@
 {% block content %}
 <div class = "row">
     <div class = "type-pages">
-        <h2>New questions</h2>
+        <h3><a class = "underlined" href = "{% url 'newquestions' %}" >
+            New questions
+        </a></h3>
     </div>
     <div class = "type-pages">
-        <h3><a class = "underlined" href="{% url 'hotquestions' %}" >Hot questions</a></h3>
+        <h2>
+            Hot questions
+        </h2>
     </div>
 </div>
 
@@ -28,7 +32,6 @@
     {% with objects=questions %}
         {% include 'inc/pagination.html' %}
     {% endwith %}
-
 </div>
 {% endblock content %}
 

@@ -1,0 +1,13 @@
+{% load static %}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination" style="margin-top: 15px">
+        {% for number in objects.paginator.page_range %}
+            {% if objects.number == number %}
+                <li class="page-item active"><a class="page-link" href="">{{ objects.number }}</a></li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ number }}">{{ number }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>

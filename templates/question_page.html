@@ -11,9 +11,9 @@
    {% include 'inc/view_question_box.html' %}
 
    <! –– Answer Box ––>
-   {% include 'inc/comment_box.html' %}
-   {% include 'inc/comment_box.html' %}
-   {% include 'inc/comment_box.html' %}
+   {% for comment in question.comments %}
+      {% include 'inc/comment_box.html' %}
+   {% endfor %}
 
    <div class = "row ">
       <textarea class="input-asnwer" style="margin-top: 20px;" id="exampleFormControlTextarea1" rows="3" placeholder="Input answer"></textarea>
@@ -24,16 +24,12 @@
    </div>
 
    <! –– Pagination ––>
-   <nav aria-label="Page navigation example">
-      <ul class="pagination" style="margin-top: 15px">
-         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-         <li class="page-item"><a class="page-link" href="#">1</a></li>
-         <li class="page-item"><a class="page-link" href="#">2</a></li>
-         <li class="page-item"><a class="page-link" href="#">3</a></li>
-         <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
-   </nav>
+   {% with objects=question.comments %}
+        {% include 'inc/pagination.html' %}
+    {% endwith %}
+
 </div>
+
 {% endblock content %}
 
 {% block right %}
