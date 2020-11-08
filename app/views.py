@@ -16,7 +16,7 @@ questions = [
     {
         'id': idx,
         'title': f'title {idx}',
-        'text': 'text text',
+        'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
         'tag': ['bender', 'cpp', 'bla', 'raytrace'],
         'comments': [comment1, comment2, comment3, comment1, comment2, comment3]
     } for idx in range(25)
@@ -28,11 +28,16 @@ questions[0]['tag'].append('kke')
 questions[2]['tag'].append('kke')
 questions[1]['tag'].append('NoKke')
 
-def new_questions(request):
-    limit = request.GET.get('limit', 5)
-    paginator = Paginator(questions, limit)
+def paginate(objects_list, request, per_page=5):
+    limit = request.GET.get('limit', per_page)
+    paginator = Paginator(objects_list, limit)
     page = request.GET.get('page')
-    pag_questions = paginator.get_page(page)
+    objects_page_list = paginator.get_page(page)
+    return objects_page_list
+
+def new_questions(request):
+
+    pag_questions = paginate(questions, request)
 
     return render(request, 'new_questions.html', {
         'questions': pag_questions,
@@ -40,13 +45,54 @@ def new_questions(request):
     })
 
 def hot_questions(request):
-    limit = request.GET.get('limit', 5)
-    paginator = Paginator(questions, limit)
-    page = request.GET.get('page')
-    pag_questions = paginator.get_page(page)
+
+    pag_questions = paginate(questions, request)
 
     return render(request, 'hot_questions.html', {
         'questions': pag_questions,
+        'tags': tags,
+    })
+
+def question_page(request, pk):
+    question = questions[pk].copy()
+
+    pag_comments = paginate(question['comments'], request)
+
+    question['comments'] = pag_comments
+
+    return render(request, 'question_page.html', {
+        'question': question,
+        'tags': tags,
+    })
+
+def tag_questions(request):
+
+    pag_questions = paginate(questions, request)
+
+    return render(request, 'tag_questions.html', {
+        'questions': pag_questions,
+        'tag': 'All tags',
+        'tags': tags,
+    })
+
+def has(array, element):
+    for item in array:
+        if (item == element):
+            return True
+    return False
+
+def tag_page(request, pk):
+    filtered_questions = []
+
+    for question in questions:
+        if (has(question['tag'], pk)):
+            filtered_questions.append(question)
+
+    tag_questions = paginate(filtered_questions, request)
+
+    return render(request, 'tag_questions.html', {
+        'questions': tag_questions,
+        'tag': pk,
         'tags': tags,
     })
 
@@ -66,47 +112,7 @@ def signup(request):
     })
 
 
-def tag_questions(request):
-    return render(request, 'tag_questions.html', {
-        'questions': questions,
-        'tag': 'All tags'
-    })
-
 def settings(request):
     return render(request, 'settings.html', {
-        'tags': tags,
-    })
-
-def question_page(request, pk):
-    question = questions[pk].copy()
-
-    limit = request.GET.get('limit', 4)
-    paginator = Paginator(question['comments'], limit)
-    page = request.GET.get('page')
-    pag_comments = paginator.get_page(page)
-
-    question['comments'] = pag_comments
-
-    return render(request, 'question_page.html', {
-        'question': question,
-        'tags': tags,
-    })
-
-def has(array, element):
-    for item in array:
-        if (item == element):
-            return True
-    return False
-
-def tag_page(request, pk):
-    filtered_questions = []
-
-    for question in questions:
-        if (has(question['tag'], pk)):
-            filtered_questions.append(question)
-
-    return render(request, 'tag_questions.html', {
-        'questions': filtered_questions,
-        'tag': pk,
         'tags': tags,
     })

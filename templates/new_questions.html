@@ -19,12 +19,11 @@
 <div class="col-9">
    <! –– Question Box ––>
 
-
    {% for question in questions %}
       {% include 'inc/question_box.html' %}
    {% endfor %}
 
-   <! –– Pagination ––>
+    <! –– Pagination ––>
     {% with objects=questions %}
         {% include 'inc/pagination.html' %}
     {% endwith %}

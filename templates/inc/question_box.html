@@ -14,20 +14,23 @@
       </div>
       <! –– For title and text ––>
       <div class="col-9">
-         <div class="question-title">{{ question.title }}</div>
+          <a class = "question-title" href="{% url 'selectedquestion' question.id %}">{{ question.title }}</a>
+
          <div class="question-text">
             {{ question.text }}
          </div>
          <div class="row under-question">
             <div class = "question-answers">
-               <a class = "underlined">Ответы (0)</a>
+               <a class = "underlined" href="{% url 'selectedquestion' question.id %}">Ответы (0)</a>
             </div>
             <div class="question-tags">
+
                Теги:
-                {% include 'inc/tag.html' %}
-                {% for tagone in question.tag %}
-                    {% include 'inc/tag.html' %}
-                {% endfor %}
+                {% with tags_question=question.tag %}
+                    {% for tagname in tags_question %}
+                        {% include 'inc/tag.html' %}
+                    {% endfor %}
+                {% endwith %}
             </div>
          </div>
       </div>
