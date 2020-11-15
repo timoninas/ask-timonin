@@ -22,6 +22,7 @@ questions = [
     } for idx in range(25)
 ]
 
+# (some request).filter(status='Pending').count()
 tags = ['cpp', 'c#', 'bender', 'kke', 'bla', 'python', 'django', 'ruby', 'swift']
 
 questions[0]['tag'].append('kke')
