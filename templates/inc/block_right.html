@@ -5,30 +5,16 @@
       </div>
 
       {% for tag in tags %}
-         <h3><a href="{% url 'tagquestions' tag %}"> {{ tag }} </a></h3>
+         <h3><a href="{% url 'tagquestions' tag.title %}"> {{ tag.title }} </a></h3>
       {% endfor %}
 
-      <!-- любой текст
-      <a class = "popular-tag" href = "{% url 'tagquestions' 'cpp' %}" style="color:black">cpp</a>
-      <a class = "popular-tag" href = "{% url 'tagquestions' 'java' %}" style="color:#darkblue">java</a>
-      <h3><a class = "popular-tag" href = "{% url 'tagquestions' 'python' %}" style="color:red">python</a></h3>
-      <a class = "popular-tag" href = "{% url 'tagquestions' 'MySQL' %}" style="color:black">MySQL</a>
-      <a class = "popular-tag" href = "{% url 'tagquestions' 'bender' %}" style="color:darkblue">bender</a>
-      <h4><a class = "popular-tag" href = "{% url 'tagquestions' 'bla' %}" style="color:#00ff00">bla</a></h4>
-      <a class = "popular-tag" href = "{% url 'tagquestions' 'raytrace' %}" style="color:black">raytrace</a>
-      <h4><a class = "popular-tag" href = "{% url 'tagquestions' 'MacOS' %}" style="color:darkblue">MacOS</a></h4>
-      <a class = "popular-tag" href = "{% url 'tagquestions' 'Apt-get' %}" style="color:#00ff00">Apt-get</a>
-      <a class = "popular-tag" href = "{% url 'tagquestions' 'kke' %}" style="color:darkblue">kke</a>
-      -->
    </div>
    <div class="col best-members">
       <div>
          <h3>Best Members</h3>
       </div>
-      <p><a class = "underlined" href = "">Mr. Freeman</a></p>
-      <p><a class = "underlined" href = "">Dr. House</a></p>
-      <p><a class = "underlined" href = "">Bender</a></p>
-      <p><a class = "underlined" href = "">Queen Victoria</a></p>
-      <p><a class = "underlined" href = "">V. Pupkin</a></p>
+      {% for username in best_members %}
+         <p><a class = "underlined" href = "">{{ username.name }}</a></p>
+      {% endfor %}
    </div>
 </div>

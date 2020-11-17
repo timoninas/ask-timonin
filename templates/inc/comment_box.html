@@ -3,11 +3,11 @@
 <div class="row answer-box">
     <! –– For Image ––>
     <div class="col-3">
-        <img class = "question-img" src = "{% static "img/test1.jpg" %}" width = 100px height = 100px >
+        <img class = "question-img" src = "{{ question.author.image.url }}" width = 100px height = 100px >
         <div class="row right-side">
              <input type="image" name="dislike" src="{% static "img/dislike.png" %}" alt="Submit" width="19" height="19">
              <div class="rating-title">
-                 5
+                 {{ question.likes.all.count }}
              </div>
              <input type="image" name="like" src="{% static "img/like.png" %}" alt="Submit" width="19" height="19">
          </div>
@@ -17,7 +17,7 @@
 
     <div class="col-9">
         <div class="question-text">
-            {{ comment }}
+            {{ comment.text }}
         </div>
         <div style="margin-top: 10px;">
             <input type="checkbox" id="isCorrest" name="isCorrect">

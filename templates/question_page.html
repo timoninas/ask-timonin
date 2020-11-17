@@ -11,7 +11,7 @@
    {% include 'inc/view_question_box.html' %}
 
    <! –– Answer Box ––>
-   {% for comment in question.comments %}
+   {% for comment in comments %}
       {% include 'inc/comment_box.html' %}
    {% endfor %}
 
@@ -24,7 +24,7 @@
    </div>
 
    <! –– Pagination ––>
-   {% with objects=question.comments %}
+   {% with objects=comments %}
         {% include 'inc/pagination.html' %}
     {% endwith %}
 

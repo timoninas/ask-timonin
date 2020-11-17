@@ -1,6 +1,8 @@
-from django.http import HttpResponse
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from app.models import Profile, Question, Comment, Tag
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.db.models import F
 
 comment1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' \
            'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
@@ -29,6 +31,8 @@ questions[0]['tag'].append('kke')
 questions[2]['tag'].append('kke')
 questions[1]['tag'].append('NoKke')
 
+
+
 def paginate(objects_list, request, per_page=5):
     limit = request.GET.get('limit', per_page)
     paginator = Paginator(objects_list, limit)
@@ -36,34 +40,43 @@ def paginate(objects_list, request, per_page=5):
     objects_page_list = paginator.get_page(page)
     return objects_page_list
 
+
+# Question.objects.order_by(F('data_create').desc())     - new
+# Question.objects.order_by(F('data_create').asc())      - old
 def new_questions(request):
 
-    pag_questions = paginate(questions, request)
+    db_question = Question.objects.newest()
+    pag_questions = paginate(db_question, request)
 
     return render(request, 'new_questions.html', {
         'questions': pag_questions,
-        'tags': tags,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.best()
     })
 
 def hot_questions(request):
 
-    pag_questions = paginate(questions, request)
+    db_question = Question.objects.hottest()
+    pag_questions = paginate(db_question, request)
 
     return render(request, 'hot_questions.html', {
         'questions': pag_questions,
-        'tags': tags,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.best()
     })
 
 def question_page(request, pk):
-    question = questions[pk].copy()
+    db_question = Question.objects.get(id=pk)
+    comments = Comment.objects.newest(db_question.id)
+    pag_comments = paginate(comments, request)
 
-    pag_comments = paginate(question['comments'], request)
-
-    question['comments'] = pag_comments
+    # question['comments'] = pag_comments
 
     return render(request, 'question_page.html', {
-        'question': question,
-        'tags': tags,
+        'question': db_question,
+        'comments': pag_comments,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.best()
     })
 
 def tag_questions(request):
@@ -73,7 +86,8 @@ def tag_questions(request):
     return render(request, 'tag_questions.html', {
         'questions': pag_questions,
         'tag': 'All tags',
-        'tags': tags,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.best()
     })
 
 def has(array, element):
@@ -83,37 +97,43 @@ def has(array, element):
     return False
 
 def tag_page(request, pk):
-    filtered_questions = []
+    questions = Question.objects.filter(tags__title=pk)
+    tag = Tag.objects.get(title=pk)
 
-    for question in questions:
-        if (has(question['tag'], pk)):
-            filtered_questions.append(question)
-
-    tag_questions = paginate(filtered_questions, request)
+    # for question in questions:
+    #     if (has(question['tag'], pk)):
+    #         filtered_questions.append(question)
+    #
+    # tag_questions = paginate(filtered_questions, request)
 
     return render(request, 'tag_questions.html', {
-        'questions': tag_questions,
-        'tag': pk,
-        'tags': tags,
+        'questions': questions,
+        'tag': tag.title,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.best()
     })
 
 def ask_question(request):
     return render(request, 'ask_question.html', {
-        'tags': tags,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.best()
     })
 
 def signin(request):
     return render(request, 'signin.html', {
-        'tags': tags,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.best()
     })
 
 def signup(request):
     return render(request, 'signup.html', {
-        'tags': tags,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.best()
     })
 
 
 def settings(request):
     return render(request, 'settings.html', {
-        'tags': tags,
+        'tags': Tag.objects.popular(),
+        'best_members': Profile.objects.best()
     })
