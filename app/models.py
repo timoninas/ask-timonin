@@ -14,7 +14,7 @@ class ProfileManager(models.Manager):
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=256, verbose_name='Имя')
-    birthday = models.DateField(verbose_name='Дата рождения')
+    birthday = models.DateField(verbose_name='Дата рождения', default=timezone.now)
     image = models.ImageField(default='default.png', blank=True)
     rating = models.PositiveIntegerField(default=0, verbose_name="Рейтинг")
 
@@ -26,7 +26,6 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
-
 
 ##
 # QUESTION
