@@ -118,7 +118,6 @@ class LikeDislikeManager(models.Manager):
             obj = Comment.objects.get(id=fromWhomLikeDislikeID)
 
         self.create(value=valueLikeDislike, profile_id=profileID, content_object=obj)
-        obj.rating += valueLikeDislike
         return obj.rating
 
 class LikeDislike(models.Model):
