@@ -66,6 +66,7 @@ def hot_questions(request):
     })
 
 def question_page(request, pk):
+<<<<<<< HEAD
     db_question = Question.objects.get(id=pk)
     comments = Comment.objects.newest(db_question.id)
     pag_comments = paginate(comments, request)
@@ -82,12 +83,27 @@ def question_page(request, pk):
 def tag_questions(request):
 
     pag_questions = paginate(questions, request)
+=======
+    question = questions[pk].copy()
+>>>>>>> d24bf1c17df477c7adbb9252259ed7cc5befd1fd
 
     return render(request, 'tag_questions.html', {
         'questions': pag_questions,
         'tag': 'All tags',
         'tags': Tag.objects.popular(),
         'best_members': Profile.objects.best()
+    })
+
+def tag_questions(request):
+    limit = request.GET.get('limit', 5)
+    paginator = Paginator(questions, limit)
+    page = request.GET.get('page')
+    pag_questions = paginator.get_page(page)
+
+    return render(request, 'tag_questions.html', {
+        'questions': pag_questions,
+        'tag': 'All tags',
+        'tags': tags,
     })
 
 def has(array, element):
@@ -106,7 +122,13 @@ def tag_page(request, pk):
     #
     # tag_questions = paginate(filtered_questions, request)
 
+    limit = request.GET.get('limit', 5)
+    paginator = Paginator(filtered_questions, limit)
+    page = request.GET.get('page')
+    tag_questions = paginator.get_page(page)
+
     return render(request, 'tag_questions.html', {
+<<<<<<< HEAD
         'questions': questions,
         'tag': tag.title,
         'tags': Tag.objects.popular(),
@@ -136,4 +158,30 @@ def settings(request):
     return render(request, 'settings.html', {
         'tags': Tag.objects.popular(),
         'best_members': Profile.objects.best()
+=======
+        'questions': tag_questions,
+        'tag': pk,
+        'tags': tags,
+>>>>>>> d24bf1c17df477c7adbb9252259ed7cc5befd1fd
+    })
+
+def ask_question(request):
+    return render(request, 'ask_question.html', {
+        'tags': tags,
+    })
+
+def signin(request):
+    return render(request, 'signin.html', {
+        'tags': tags,
+    })
+
+def signup(request):
+    return render(request, 'signup.html', {
+        'tags': tags,
+    })
+
+
+def settings(request):
+    return render(request, 'settings.html', {
+        'tags': tags,
     })
