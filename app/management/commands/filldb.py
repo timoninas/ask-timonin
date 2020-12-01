@@ -186,6 +186,9 @@ class Command(BaseCommand):
                     #                          value=dis_or_not,
                     #                          profile_id=profile_id))
 
+            if (i % 500 == 0):
+                print(f"Insert[{i / 500}] 500 like-dislikes")
+
             if len(votes) >= 500:
                 LikeDislike.objects.bulk_create(votes)
                 votes.clear()

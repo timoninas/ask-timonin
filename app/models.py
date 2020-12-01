@@ -43,7 +43,7 @@ class Question(models.Model):
     title = models.CharField(max_length=256, verbose_name='Заголовок')
     text = models.CharField(max_length=1024, verbose_name='Текст')
     data_create = models.DateField(auto_now_add=True, verbose_name="Дата создания")
-    rating = models.PositiveIntegerField(default=0, db_index=True, verbose_name="Рейтинг")
+    rating = models.IntegerField(default=0, db_index=True, verbose_name="Рейтинг")
     active_status = models.BooleanField(default=True, verbose_name="Статус активности")
     answers_number = models.PositiveIntegerField(default=0, verbose_name="Количество ответов")
 
@@ -71,7 +71,7 @@ class CommentManager(models.Manager):
 
 class Comment(models.Model):
     text = models.CharField(max_length=1024, verbose_name='Текст')
-    rating = models.PositiveIntegerField(default=0, db_index=True, verbose_name="Рейтинг")
+    rating = models.IntegerField(default=0, db_index=True, verbose_name="Рейтинг")
     data_create = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     correct_status = models.BooleanField(default=False, verbose_name="Корректность ответа")
 
@@ -118,6 +118,8 @@ class LikeDislikeManager(models.Manager):
             obj = Comment.objects.get(id=fromWhomLikeDislikeID)
 
         self.create(value=valueLikeDislike, profile_id=profileID, content_object=obj)
+        obj.rating += valueLikeDislike
+        obj.save()
         return obj.rating
 
 class LikeDislike(models.Model):
