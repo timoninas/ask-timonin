@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -131,6 +132,9 @@ MEDIA_URL = '/img/'
 
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img/')
+
+# Login url
+LOGIN_URL = '/signin/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",

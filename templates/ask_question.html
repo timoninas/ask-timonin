@@ -1,5 +1,6 @@
 {% extends 'inc/base.html' %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block navbar %}
     {% include 'inc/logined_navbar.html' %}
@@ -9,33 +10,13 @@
 {% block content %}
 <div class="col-9">
     <h2 style="margin-top: 10px;">New question</h2>
-    <div class="col new-question-box">
-        <div class = "row new-question-line">
-            <div class="col-2">
-                Title
-            </div>
-            <div class="col-9">
-                <input class = "new-question-width " type="text" placeholder="Input title">
-            </div>
-        </div>
-        <div class = "row new-question-line">
-            <div class="col-2">
-                Text
-            </div>
-            <div class="col-9">
-                <textarea class="new-question-width new-question-height" id="exampleFormControlTextarea1" rows="3" placeholder="Input text"></textarea>
-            </div>
-        </div>
-        <div class = "row new-question-line">
-            <div class="col-2">
-                Tags
-            </div>
-            <div class="col-9">
-                <input class = "new-question-width " type="text" placeholder="Input tags">
-            </div>
-        </div>
-    </div>
-    <button type="button" class="btn btn-secondary ask-btn">Ask!</button>
+    <form class="form mt-5" method="POST" novalidate>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">Ask</button>
+    {% endbuttons %}
+</form>
 </div>
 {% endblock content %}
 

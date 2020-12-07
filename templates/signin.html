@@ -1,8 +1,9 @@
 {% extends 'inc/base.html' %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block navbar %}
-   {% include 'inc/unlogined_navbar.html' %}
+   {% include 'inc/logined_navbar.html' %}
 {% endblock navbar %}
 
 {% block content %}
@@ -11,27 +12,15 @@
         <h2>Log in</h2>
         <div class = "warning-title"> Sorry, wrong password </div>
     </div>
-    <form class="setting-form">
+    <form class="form setting-form" method="POST" action="/signin/" enctype="" novalidate>
+
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">Log in</button>
+        {% endbuttons %}
         <div class="form-group row">
-            <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputLogin" placeholder="Enter your login here">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="password" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" value="Some password">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="password" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-10">
-                <button type="button" class="btn btn-primary setting-form">Log in</button>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="password" class="col-sm-2 col-form-label"></label>
+            <label class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
                 <a class="question-tags underlined" href = "">Create new account</a>
             </div>

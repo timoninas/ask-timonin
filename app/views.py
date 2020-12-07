@@ -1,8 +1,14 @@
+# django
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from app.models import Profile, Question, Comment, Tag
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import  get_object_or_404, render, redirect, reverse
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.contrib import auth
 from django.db.models import F
+
+# app
+from app.models import Profile, Question, Comment, Tag
+from app.forms import LoginForm, AskForm
 
 comment1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' \
            'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
@@ -113,16 +119,38 @@ def tag_page(request, pk):
         'best_members': Profile.objects.best()
     })
 
+@login_required
 def ask_question(request):
+    if request.method == "GET":
+        form = AskForm()
+    else:
+        form = AskForm(data=request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.author = request.user.profile
+            question.save()
+            return redirect(reverse('selectedquestion', kwargs={'pk': question.pk}))
     return render(request, 'ask_question.html', {
         'tags': Tag.objects.popular(),
-        'best_members': Profile.objects.best()
+        'best_members': Profile.objects.best(),
+        'form': form
     })
 
 def signin(request):
+    if request.method == 'GET':
+        form = LoginForm()
+    else:
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = auth.authenticate(request, **form.cleaned_data)
+            if user is not None:
+                auth.login(request, user)
+                return redirect("/") # Нужен правильный редирект
+
     return render(request, 'signin.html', {
         'tags': Tag.objects.popular(),
-        'best_members': Profile.objects.best()
+        'best_members': Profile.objects.best(),
+        'form': form
     })
 
 def signup(request):
@@ -130,6 +158,10 @@ def signup(request):
         'tags': Tag.objects.popular(),
         'best_members': Profile.objects.best()
     })
+
+def signout(request):
+    auth.logout(request)
+    return redirect("/")
 
 
 def settings(request):
