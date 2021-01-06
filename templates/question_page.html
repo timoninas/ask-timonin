@@ -1,5 +1,6 @@
 {% extends 'inc/base.html' %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block navbar %}
     {% include 'inc/logined_navbar.html' %}
@@ -15,13 +16,20 @@
       {% include 'inc/comment_box.html' %}
    {% endfor %}
 
-   <div class = "row ">
-      <textarea class="input-asnwer" style="margin-top: 20px;" id="exampleFormControlTextarea1" rows="3" placeholder="Input answer"></textarea>
-   </div>
 
-   <div class = "row">
-      <button type="button" class="btn btn-secondary ask-btn" >Comment</button>
-   </div>
+
+   {% if request.user.is_authenticated %}
+      <div class = "row">
+         <form class="form setting-form" method="POST" action="{% url 'selectedquestion' question.id %}" enctype="" >
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-secondary ask-btn" >Comment</button>
+            {% endbuttons %}
+         </form>
+      </div>
+   {% endif %}
+
 
    <! –– Pagination ––>
    {% with objects=comments %}

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from app.models import Question, Profile, Tag
+from app.models import Question, Profile, Tag, Comment
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -59,6 +59,11 @@ class SignupForm(forms.Form):
             self.cleaned_data['password1']
         )
         return user
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
 
 class SettingsForm(forms.Form):
     username = forms.CharField(label="Username", required=True)

@@ -8,7 +8,7 @@ from django.db.models import F
 
 # app
 from app.models import Profile, Question, Comment, Tag
-from app.forms import LoginForm, AskForm, SignupForm
+from app.forms import LoginForm, AskForm, SignupForm, CommentForm
 
 comment1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' \
            'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
@@ -76,13 +76,23 @@ def question_page(request, pk):
     comments = Comment.objects.newest(db_question.id)
     pag_comments = paginate(comments, request)
 
-    # question['comments'] = pag_comments
+    if request.method == "GET":
+        form = CommentForm()
+    else:
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user.profile
+            comment.question = db_question
+            comment.save()
+            return redirect(reverse('selectedquestion', kwargs={'pk': db_question.pk}))
 
     return render(request, 'question_page.html', {
         'question': db_question,
         'comments': pag_comments,
         'tags': Tag.objects.popular(),
-        'best_members': Profile.objects.best()
+        'best_members': Profile.objects.best(),
+        'form': form
     })
 
 def tag_questions(request):
