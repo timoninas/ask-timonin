@@ -17,12 +17,13 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-            <button type="submit" class="btn btn-primary">Log in</button>
+
+        <button type="submit" class="btn btn-primary">Log in</button>
         {% endbuttons %}
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <a class="question-tags underlined" href = "">Create new account</a>
+                <a class="question-tags underlined" href = "{% url 'signup' %}">Create new account</a>
             </div>
         </div>
     </form>

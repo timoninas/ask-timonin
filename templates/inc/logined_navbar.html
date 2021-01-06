@@ -20,9 +20,12 @@
             <div class="col">
                 <div class="col question-tags">
                     <div style="color: white;">
+                        {% if request.user.is_authenticated %}
                         <h5 class ="col user-name-bar">
-                            Username
+                            {{ request.user }}
                         </h5>
+                        {% endif %}
+
                     </div>
                 </div>
 

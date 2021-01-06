@@ -11,8 +11,10 @@
 <div class="col-9">
     <h2 style="margin-top: 10px;">New question</h2>
     <form class="form mt-5" method="POST" novalidate>
+
     {% csrf_token %}
     {% bootstrap_form form %}
+
     {% buttons %}
         <button type="submit" class="btn btn-primary">Ask</button>
     {% endbuttons %}

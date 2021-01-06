@@ -8,7 +8,7 @@ from django.db.models import F
 
 # app
 from app.models import Profile, Question, Comment, Tag
-from app.forms import LoginForm, AskForm
+from app.forms import LoginForm, AskForm, SignupForm
 
 comment1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' \
            'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
@@ -154,14 +154,28 @@ def signin(request):
     })
 
 def signup(request):
+    if request.method == 'GET':
+        form = SignupForm()
+    else:
+        form = SignupForm(data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth.authenticate(request, **form.cleaned_data)
+            profile = Profile(name=request.POST['username'], user=user)
+            profile.save()
+            return redirect("/")
+            # return redirect(request.POST.get('next', '/'))
+
+
     return render(request, 'signup.html', {
         'tags': Tag.objects.popular(),
-        'best_members': Profile.objects.best()
+        'best_members': Profile.objects.best(),
+        'form': form
     })
 
 def signout(request):
     auth.logout(request)
-    return redirect("/")
+    return redirect("signin")
 
 
 def settings(request):
