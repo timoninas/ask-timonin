@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap4 %}
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="{% url 'newquestions' %}">Ask-Timonin</a>
@@ -16,7 +17,11 @@
             </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0">
-            <img class = "question-img" src = "{% static "img/test.jpg" %}" width = 50px height = 50px >
+
+            {% if request.user.is_authenticated %}
+                <img src="{{request.user.profile.image.url }}" class = "rounded img-fluid" width="48" height="48" alt="avatar" >
+                {% endif %}
+
             <div class="col">
                 <div class="col question-tags">
                     <div style="color: white;">

@@ -1,5 +1,6 @@
 {% extends 'inc/base.html' %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block navbar %}
     {% include 'inc/logined_navbar.html' %}
@@ -33,8 +34,14 @@
         {% include 'inc/pagination.html' %}
     {% endwith %}
 </div>
+
 {% endblock content %}
+
 
 {% block right %}
    {% include 'inc/block_right.html' %}
 {% endblock right %}
+
+{% block jscode %}
+    <script src="{% static "js/vote.js" %}"</script>
+{% endblock %}

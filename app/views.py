@@ -6,9 +6,11 @@ from django.http import HttpResponse
 from django.contrib import auth
 from django.db.models import F
 
+from django.views.decorators.http import require_POST
+
 # app
 from app.models import Profile, Question, Comment, Tag
-from app.forms import LoginForm, AskForm, SignupForm, CommentForm
+from app.forms import LoginForm, AskForm, SignupForm, CommentForm, SettingsForm, AvatarForm
 
 comment1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' \
            'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'
@@ -70,6 +72,16 @@ def hot_questions(request):
         'tags': Tag.objects.popular(),
         'best_members': Profile.objects.best()
     })
+
+@require_POST
+@login_required
+def vote(request):
+    data = request.POST
+    from pprint import pformat
+    print('\n\n', '=' * 100)
+    print(f'HERE: {pformat(data)}')
+    print('=' * 100, '\n\n')
+    return JsonResponse({'question_likes': 42})
 
 def question_page(request, pk):
     db_question = Question.objects.get(id=pk)
@@ -188,8 +200,21 @@ def signout(request):
     return redirect("signin")
 
 
+@login_required
 def settings(request):
+    form_class = AvatarForm
+    if request.method == 'GET':
+        form = form_class()
+    else:
+        form = form_class(
+            data=request.POST, files=request.FILES,
+            instance=request.user.profile
+        )
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('settings'))
     return render(request, 'settings.html', {
         'tags': Tag.objects.popular(),
-        'best_members': Profile.objects.best()
+        'best_members': Profile.objects.best(),
+        'form': form
     })
