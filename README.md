@@ -6,7 +6,7 @@
 
 Результаты тестирования на введенных ниже параметрах:
 
-`ab -c 100 -n 10000 http://127.0.0.1:8081/`
+`ab -c 100 -n 10000 http://127.0.0.1:8081/ &> out_ab_1.txt`
  
 `-c concurrency` - Количество нескольких запросов, выполняемых одновременно
 
@@ -14,7 +14,7 @@
 
 ```Console
 
-ab -c 100 -n 10000 http://127.0.0.1:8081
+ab -c 100 -n 10000 http://127.0.0.1:8081 &> out_ab_1.txt
 
 This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
