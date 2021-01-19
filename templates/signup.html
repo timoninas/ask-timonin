@@ -13,7 +13,16 @@
             <h2>Registration</h2>
         </div>
     </div>
-    <form class="form setting-form" method="POST" action="/signup/" enctype="" >
+
+    {% if messages %}
+        <ul class="messagelist">
+            {% for message in messages %}
+                <li><div class = "warning-title">{{ message.message }}</div></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form class="form setting-form" method="POST" action="/signup/" enctype="" novalidate>
 
         {% csrf_token %}
         {% bootstrap_form form %}

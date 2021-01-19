@@ -10,8 +10,16 @@
 <div class="col-9">
     <div class = "col">
         <h2>Log in</h2>
-        <div class = "warning-title"> Sorry, wrong password </div>
     </div>
+
+    {% if messages %}
+        <ul class="messagelist">
+            {% for message in messages %}
+                <li><div class = "warning-title">{{ message.message }}</div></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <form class="form setting-form" method="POST" action="/signin/" enctype="" novalidate>
 
         {% csrf_token %}

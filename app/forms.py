@@ -27,15 +27,6 @@ class AskForm(forms.ModelForm):
         model = Question
         fields = ['title', 'text', 'tags']
 
-# class SignupForm(UserCreationForm):
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email', 'password1', 'password2']
-    # username = forms.CharField(label="Username", required=True)
-    # email = forms.EmailField(label="Email", required=True)
-    # password = forms.CharField(label="Password", required=True, widget=forms.PasswordInput())
-    # repeat_password = forms.CharField(label="Repeat password", required=True, widget=forms.PasswordInput())
-
 class SignupForm(forms.Form):
     username = forms.CharField(label='Enter Username', min_length=4, max_length=150)
     email = forms.EmailField(label='Enter email')
