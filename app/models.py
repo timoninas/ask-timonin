@@ -16,7 +16,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=256, verbose_name='Имя')
     birthday = models.DateField(verbose_name='Дата рождения', default=timezone.now)
-    image = models.ImageField(upload_to='avatar/%Y/%m/%d', default='default.png', blank=True)
+    image = models.ImageField(default='default.png', upload_to='avatar/%Y/%m/%d',)
     rating = models.PositiveIntegerField(default=0, verbose_name="Рейтинг")
 
     objects = ProfileManager()

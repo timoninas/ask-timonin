@@ -128,14 +128,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR,'/static/')
 STATIC_URL = STATIC_ROOT
 
 # Base url to serve media files
 MEDIA_URL = '/img/'
 
 # Path where media is stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'img')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img/')
 
 # Login url
 LOGIN_URL = '/signin/'
