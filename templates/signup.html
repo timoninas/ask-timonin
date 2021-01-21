@@ -22,7 +22,7 @@
         </ul>
     {% endif %}
 
-    <form class="form setting-form" method="POST" action="/signup/" enctype="" novalidate>
+    <form class="form setting-form" method="POST" action="{% url 'signup' %}" enctype="" novalidate>
 
         {% csrf_token %}
         {% bootstrap_form form %}

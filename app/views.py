@@ -8,10 +8,26 @@ from django.db.models import F
 
 from django.views.decorators.http import require_POST
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny, IsAdminUser
+
 # app
 from app.models import Profile, Question, Comment, Tag
 from app.forms import LoginForm, AskForm, SignupForm, CommentForm, SettingsForm, AvatarForm
 from django.contrib import messages
+
+
+class CreateUserAPIView(APIView):
+    # Allow any user (authenticated or not) to access this url
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        user = request.data
+        serializer = UserSerializer(data=user)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 def paginate(objects_list, request, per_page=5):
     limit = request.GET.get('limit', per_page)
@@ -122,6 +138,7 @@ def ask_question(request):
     })
 
 def signin(request):
+    next_page = request.GET.get('next', '/')
     if request.method == 'GET':
         form = LoginForm()
     else:
@@ -130,15 +147,18 @@ def signin(request):
             user = auth.authenticate(request, **form.cleaned_data)
             if user is not None:
                 auth.login(request, user)
-                return redirect(request.POST.get('next', '/'))
+                print("\nFEFE\n")
+                return redirect('/api/v1/')
         messages.error(request, 'Invalid username or password')
-        return redirect('/signin')
+        print("\nKEKE\n")
+        return redirect(next_page)
 
 
     return render(request, 'signin.html', {
         'tags': Tag.objects.popular(),
         'best_members': Profile.objects.best(),
-        'form': form
+        'form': form,
+        'next': next_page
     })
 
 def signup(request):
@@ -151,9 +171,9 @@ def signup(request):
             auth.authenticate(request, **form.cleaned_data)
             profile = Profile(name=request.POST['username'], user=user)
             profile.save()
-            return redirect(request.POST.get('next', '/'))
+            return redirect('/api/v1/')
         messages.error(request, 'User already exist')
-        return redirect('/signup')
+        return redirect('/api/v1/')
 
     return render(request, 'signup.html', {
         'tags': Tag.objects.popular(),

@@ -5,7 +5,7 @@
       </div>
 
       {% for tag in tags %}
-         <h3><a href="{% url 'tagquestions' tag.title %}"> {{ tag.title }} </a></h3>
+         <h3><a href="{% url 'tagquestions' pk=tag.title %}"> {{ tag.title }} </a></h3>
       {% endfor %}
 
    </div>

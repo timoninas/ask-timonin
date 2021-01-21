@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import datetime
 from pathlib import Path
 import os
 
@@ -26,7 +27,23 @@ SECRET_KEY = '51_8ur&9hsscji6v60_19lq5w)(ruh=p3e@w(!i-r&q-8#zfnh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'www.localhost.ru', '127.0.0.1']
+
+CENTRIFUGO_SECRET_KEY = "9b541114-dfeb-4eb8-a544-637faa70fc9"
+CENTRIFUGO_API_KEY = "5ad937b5-7def-42c7-9e24-f77278397b3f"
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ]
+}
+
+# AUTH_USER_MODEL="app.User"
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
@@ -37,8 +54,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'bootstrap4',
+    'sslserver',
+    'rest_framework',
     'app',
-    'bootstrap4'
+
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
@@ -85,13 +107,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-REST_FRAMEWORK = {
-  'DEFAULT_AUTHENTICATION_CLASSES': (
-    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-  ),
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
