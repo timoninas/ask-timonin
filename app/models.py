@@ -65,7 +65,7 @@ class ProfileManager(models.Manager):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, related_name='profile')
-    nick = models.CharField(max_length=256, verbose_name='Nickname')
+    name = models.CharField(max_length=256, verbose_name='Nickname')
     birthday = models.DateField(verbose_name='Дата рождения', default=timezone.now)
     image = models.ImageField(default='default.png', upload_to='avatar/%Y/%m/%d',)
     rating = models.PositiveIntegerField(default=0, verbose_name="Рейтинг")
@@ -91,6 +91,9 @@ class QuestionManager(models.Manager):
     def tagged(self, title):
         return self.filter(active_status=True, tags__title=title)
 
+    def by_id(self, id):
+        return self.get(id=id)
+
 class Question(models.Model):
     title = models.CharField(max_length=256, verbose_name='Заголовок')
     text = models.CharField(max_length=1024, verbose_name='Текст')
@@ -101,7 +104,7 @@ class Question(models.Model):
 
     author = models.ForeignKey('Profile', on_delete=models.CASCADE, verbose_name="Автор вопроса")
     likes = models.ManyToManyField('Profile', related_name='comments', default=None, blank=True, verbose_name="Лайки пользователей")
-    tags = models.ManyToManyField('Tag', blank=True, verbose_name="Теги")
+    tags = models.ManyToManyField('Tag', blank=True, verbose_name="Теги", related_name='question')
 
     votes = GenericRelation(to='LikeDislike', related_query_name='question')
 
@@ -128,7 +131,7 @@ class Comment(models.Model):
     correct_status = models.BooleanField(default=False, verbose_name="Корректность ответа")
 
     author = models.ForeignKey('Profile', on_delete=models.PROTECT)
-    question = models.ForeignKey('Question', on_delete=models.CASCADE, verbose_name="Вопрос")
+    question = models.ForeignKey('Question', on_delete=models.CASCADE, verbose_name="Вопрос", related_name='answer')
 
     votes = GenericRelation(to='LikeDislike', related_query_name='comment')
 
@@ -144,6 +147,10 @@ class Comment(models.Model):
 ##
 # TAG
 class TagManager(models.Manager):
+    def by_tag(self, tag_title):
+        tag = self.get(title=tag_title)
+        return tag.question.all() if tag else None
+
     def popular(self):
         return self.order_by('-references')[:7]
 

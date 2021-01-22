@@ -1,20 +1,111 @@
-server {
-  listen 80 default_server;
-  server_name askme.ru;
-  access_log  /var/log/nginx/askme.access.log;
-  error_log /var/log/nginx/askme.error.log;
+upstream django_backend {
 
-  location / {
-      proxy_pass http://127.0.0.1:8081;
-      proxy_set_header Host $host;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_cache askme_cache;
-      proxy_cache_valid 200 302 10m;
-  }
+server 127.0.0.1:8080 max_fails=3 fail_timeout=10s weight=2;
 
-  location /static {
-    autoindex on;
-    root /home/parallels/Desktop/ask-timonin;
-  }
+        server 127.0.0.1:8081 max_fails=1 fail_timeout=10s weight=1;
+
+        server 127.0.0.1:8082 max_fails=1 fail_timeout=10s weight=1;
 
 }
+
+proxy_hide_header Server;
+
+server {
+    listen 443 http2 default_server ssl;
+    ssl_certificate /etc/ssl/certs/localhost.crt;
+    ssl_certificate_key /etc/ssl/private/localhost.key;
+
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        charset utf-8;
+
+    proxy_headers_hash_max_size 512;
+    proxy_headers_hash_bucket_size 128;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location / {
+        root /home/parallels/Desktop/ask-timonin/static;
+        try_files $uri $uri/hello.html =404;
+        http2_push /img/img.jpg;
+    }
+
+    location = /test {
+                return 301 /;
+        }
+
+    location = /status {
+                stub_status;
+        }
+        
+        location /static {
+        root /home/parallels/Desktop/ask-timonin;
+        proxy_cache backcache;
+        proxy_cache_bypass $http_cache_control;
+        add_header X-Proxy-Cache $upstream_cache_status;
+    }
+
+    location /uploads {
+        root /home/parallels/Desktop/ask-timonin;
+        proxy_cache backcache;
+        proxy_cache_bypass $http_cache_control;
+        add_header X-Proxy-Cache $upstream_cache_status;
+    }
+
+    location /legacy {
+        include proxy_params;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header X-Forwarded-Host $proxy_host;
+                proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://django_backend/api/v1;
+        }
+
+    location /api/v1 {
+        include proxy_params;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header X-Forwarded-Host $proxy_host;
+                proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://django_backend;
+    }
+    
+    
+    set $backend http://django_backend;
+    if ($request_method = POST) {
+        set $backend http://127.0.0.1:8081;
+    }
+
+    location /api/v2 {
+        include proxy_params;
+        proxy_pass $backend;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_connect_timeout 25ms;
+                proxy_send_timeout 5s;
+                proxy_read_timeout 5s;
+                proxy_next_upstream_tries 2;
+                proxy_next_upstream error timeout http_500 http_504;
+                proxy_next_upstream_timeout 10s;
+    }
+
+    location /admin/ {
+        include proxy_params;
+        proxy_pass http://localhost:5050/;
+        proxy_set_header X-Script-Name /admin;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header X-Forwarded-Host $proxy_host;
+                proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    gzip on;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+}
+
+proxy_cache_path /var/cache/nginx_cache levels=1:2 keys_zone=backcache:8m max_size=50m;
+proxy_cache_key "$scheme$request_method$host$request_uri$is_args$args";
+proxy_cache_valid 200 302 10m;
+proxy_cache_valid 404 1m;
+                              
