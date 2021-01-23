@@ -1,6 +1,5 @@
 # Web-технологии; Технопарк; 1 семестр
 
-
 # Цель работы:
 Создать веб-приложение, в котором можно задать интересующий вас вопрос и получить на него ответ. Ответить на вопросы, ответы на которые вы знаете. Получить базовые знания веб-программирования
 
@@ -171,9 +170,13 @@ ____
   <img class = "figma-animation" src = "media/prototype-animation.gif" >
 </p>
 
+# Figma scroll
+
 <p align="center">
   <img class = "figma-animation" src = "media/prototype-scroll.gif" >
 </p>
+
+
 
 
 
