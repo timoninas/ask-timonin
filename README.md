@@ -1,5 +1,24 @@
 # Web-технологии; Технопарк; 1 семестр
 
+# ER-model
+
+<p align="center">
+  <img class = "er-diagram" src = "media/er.png" >
+</p>
+
+# Use-case diagram
+
+<p align="center">
+  <img class = "use-case-diagram" src = "media/use_case.png" >
+</p>
+
+# Figma animation
+
+<p align="center">
+  <img class = "figma-animation" src = "media/prototype-animation.gif" >
+</p>
+
+
 ## Apache HTTP server benchmarking tool - ab
 
 Тестирование производительности web-приложения. Для этой цели можно использовать Apache HTTP server benchmarking tool
