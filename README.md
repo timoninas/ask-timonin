@@ -31,7 +31,7 @@
 
 Результаты тестирования на введенных ниже параметрах:
 
-`ab -c 100 -n 10000 http://127.0.0.1:8080/api/v2/questions &> out_ab_1.txt`
+`ab -c 100 -n 10000 http://127.0.0.1:80/api/v2/questions &> out_ab_1.txt`
  
 `-c concurrency` - Количество нескольких запросов, выполняемых одновременно
 
@@ -40,8 +40,7 @@
 
 # 10000 запросов без балансировки
 ```Console
-
-ab -c 100 -n 10000 http://127.0.0.1:8080/api/v2/questions
+ab -c 100 -n 10000 http://127.0.0.1:80/api/v2/questions
 This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
@@ -60,43 +59,43 @@ Completed 10000 requests
 Finished 10000 requests
 
 
-Server Software:        WSGIServer/0.2
+Server Software:        nginx/1.18.0
 Server Hostname:        127.0.0.1
-Server Port:            8080
+Server Port:            80
 
 Document Path:          /api/v2/questions
 Document Length:        1161 bytes
 
 Concurrency Level:      100
-Time taken for tests:   230.479 seconds
+Time taken for tests:   237.241 seconds
 Complete requests:      10000
-Failed requests:        9
-   (Connect: 0, Receive: 0, Length: 9, Exceptions: 0)
-Non-2xx responses:      9
-Total transferred:      16423816 bytes
-HTML transferred:       13594005 bytes
-Requests per second:    43.39 [#/sec] (mean)
-Time per request:       2304.795 [ms] (mean)
-Time per request:       23.048 [ms] (mean, across all concurrent requests)
-Transfer rate:          69.59 [Kbytes/sec] received
+Failed requests:        55
+   (Connect: 0, Receive: 0, Length: 55, Exceptions: 0)
+Non-2xx responses:      55
+Total transferred:      19384897 bytes
+HTML transferred:       16438791 bytes
+Requests per second:    42.15 [#/sec] (mean)
+Time per request:       2372.411 [ms] (mean)
+Time per request:       23.724 [ms] (mean, across all concurrent requests)
+Transfer rate:          79.79 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0   39 475.0      0    7304
-Processing:    66 2261 1547.5   2202   55987
-Waiting:       42 2148 1541.4   2088   55719
-Total:         66 2301 1652.0   2204   56990
+Connect:        0    0   0.6      0       7
+Processing:    49 2352 4001.0   2149   61024
+Waiting:       43 2352 4001.0   2149   61023
+Total:         49 2352 4001.5   2149   61030
 
 Percentage of the requests served within a certain time (ms)
-  50%   2204
-  66%   2391
-  75%   2517
-  80%   2605
-  90%   2849
-  95%   3053
-  98%   3360
-  99%   3684
- 100%  56990 (longest request)
+  50%   2149
+  66%   2451
+  75%   2627
+  80%   2737
+  90%   3026
+  95%   3307
+  98%   3692
+  99%   4158
+ 100%  61030 (longest request)
 ```
 
 # 10000 запросов с балансировкой
