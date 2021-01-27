@@ -31,7 +31,7 @@
 
 Результаты тестирования на введенных ниже параметрах:
 
-`ab -c 100 -n 10000 http://127.0.0.1:8081/ &> out_ab_1.txt`
+`ab -c 100 -n 10000 http://127.0.0.1:8080/api/v2/questions &> out_ab_1.txt`
  
 `-c concurrency` - Количество нескольких запросов, выполняемых одновременно
 
@@ -41,8 +41,7 @@
 # 10000 запросов без балансировки
 ```Console
 
-ab -c 100 -n 10000 http://127.0.0.1:8081/api/v2/questions &> out_ab_1.txt
-
+ab -c 100 -n 10000 http://127.0.0.1:8080/api/v2/questions
 This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
@@ -60,47 +59,50 @@ Completed 9000 requests
 Completed 10000 requests
 Finished 10000 requests
 
-Server Software:        nginx/1.19.5
-Server Hostname:        127.0.0.1
-Server Port:            80
 
-Document Path: /api/v2/questions/
-Document Length:        12142 bytes
+Server Software:        WSGIServer/0.2
+Server Hostname:        127.0.0.1
+Server Port:            8080
+
+Document Path:          /api/v2/questions
+Document Length:        1161 bytes
 
 Concurrency Level:      100
-Time taken for tests:   158.522 seconds
+Time taken for tests:   230.479 seconds
 Complete requests:      10000
-Failed requests:        0
-Total transferred:      124050000 bytes
-HTML transferred:       121420000 bytes
-Requests per second:    63.08 [#/sec] (mean)
-Time per request:       1585.216 [ms] (mean)
-Time per request:       15.852 [ms] (mean, across all concurrent requests)
-Transfer rate:          764.20 [Kbytes/sec] received
+Failed requests:        9
+   (Connect: 0, Receive: 0, Length: 9, Exceptions: 0)
+Non-2xx responses:      9
+Total transferred:      16423816 bytes
+HTML transferred:       13594005 bytes
+Requests per second:    43.39 [#/sec] (mean)
+Time per request:       2304.795 [ms] (mean)
+Time per request:       23.048 [ms] (mean, across all concurrent requests)
+Transfer rate:          69.59 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.2      0       5
-Processing:    88 1578 161.5   1572    2160
-Waiting:       84 1577 161.5   1571    2159
-Total:         88 1578 161.4   1572    2160
+Connect:        0   39 475.0      0    7304
+Processing:    66 2261 1547.5   2202   55987
+Waiting:       42 2148 1541.4   2088   55719
+Total:         66 2301 1652.0   2204   56990
 
 Percentage of the requests served within a certain time (ms)
-  50%   1572
-  66%   1617
-  75%   1645
-  80%   1672
-  90%   1749
-  95%   1847
-  98%   1964
-  99%   2007
- 100%   2160 (longest request)
+  50%   2204
+  66%   2391
+  75%   2517
+  80%   2605
+  90%   2849
+  95%   3053
+  98%   3360
+  99%   3684
+ 100%  56990 (longest request)
 ```
 
 # 10000 запросов с балансировкой
 ```Console
-ab -c 100 -n 10000 http://127.0.0.1:8081/api/v2/questions &> out_ab_1.txt
-This is ApacheBench, Version 2.3 <$Revision: 1706008 $>
+ab -c 100 -n 10000 http://127.0.0.1:80/api/v2/questions
+This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
@@ -117,42 +119,42 @@ Completed 9000 requests
 Completed 10000 requests
 Finished 10000 requests
 
-Server Software: nginx/1.19.5
-Server Hostname: 127.0.0.1
-Server Port: 80
 
-Document Path: /api/v2/questions/
-Document Length: 12142 bytes
+Server Software:        nginx/1.18.0
+Server Hostname:        127.0.0.1
+Server Port:            80
+
+Document Path:          /api/v2/questions
+Document Length:        1161 bytes
 
 Concurrency Level:      100
-Time taken for tests:   158.522 seconds
+Time taken for tests:   219.405 seconds
 Complete requests:      10000
-Failed requests:        2
-Total transferred:      123700000 bytes
-HTML transferred:       124210000 bytes
-Requests per second:    63.08 [#/sec] (mean)
-Time per request:       1585.216 [ms] (mean)
-Time per request:       15.852 [ms] (mean, across all concurrent requests)
-Transfer rate:          764.20 [Kbytes/sec] received
-
+Failed requests:        0
+Total transferred:      14560000 bytes
+HTML transferred:       11610000 bytes
+Requests per second:    45.58 [#/sec] (mean)
+Time per request:       2194.053 [ms] (mean)
+Time per request:       21.941 [ms] (mean, across all concurrent requests)
+Transfer rate:          64.81 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.2      0       5
-Processing:    88 1578 161.5   1560    2160
-Waiting:       84 1577 161.5   1573    2163
-Total:         88 1578 161.4   1575    2159
+Connect:        0    0   0.2      0       6
+Processing:    23 1933 5973.2    682   83194
+Waiting:       23 1933 5973.2    682   83194
+Total:         23 1933 5973.2    682   83194
 
 Percentage of the requests served within a certain time (ms)
-  50%   1601
-  66%   1631
-  75%   1649
-  80%   1665
-  90%   1735
-  95%   1893
-  98%   1934
-  99%   1989
- 100%   2202 (longest request)
+  50%    682
+  66%    952
+  75%   1608
+  80%   1754
+  90%   3718
+  95%   7751
+  98%  16109
+  99%  31643
+ 100%  83194 (longest request)
 ```
 ____
 
